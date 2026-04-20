@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const create_profile_dto_1 = require("./dto/create-profile.dto");
 const update_profile_dto_1 = require("./dto/update-profile.dto");
 const profiles_service_1 = require("./profiles.service");
+const profiles_guard_1 = require("./profiles.guard");
 let ProfilesController = class ProfilesController {
     profilesService;
     constructor(profilesService) {
@@ -48,7 +49,7 @@ __decorate([
 ], ProfilesController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
@@ -62,7 +63,7 @@ __decorate([
 ], ProfilesController.prototype, "create", null);
 __decorate([
     (0, common_1.Put)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_profile_dto_1.UpdateProfileDto]),
@@ -70,8 +71,9 @@ __decorate([
 ], ProfilesController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    (0, common_1.UseGuards)(profiles_guard_1.ProfilesGuard),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id', common_1.ParseUUIDPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
